@@ -3,42 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WetterApp - Dein täglicher Wetterbegleiter</title>
+    <link rel="icon" type="image/png" href="./favicon.png">
+    <title>SkyCheck - Dein täglicher Wetterbegleiter</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        /* Moderne Farbpalette und Grundstil */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #fbbf24;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --grey-light: #e2e8f0;
+            --text: #334155;
+            --text-light: #64748b;
+        }
+        
+        * {
             margin: 0;
             padding: 0;
-            background-color: #f5f7fa;
-            color: #333;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
         }
         
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 2rem;
         }
         
+        /* Header-Bereich mit Glaseffekt */
         header {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 2rem;
             display: flex;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 3rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+            z-index: -1;
         }
         
         .app-icon {
-            width: 120px;
-            height: 120px;
-            border-radius: 24px;
-            margin-right: 20px;
-            background-color: #0a1735;
+            width: 140px;
+            height: 140px;
+            border-radius: 28px;
+            margin-right: 2.5rem;
+            background-color: var(--dark);
             display: flex;
             justify-content: center;
             align-items: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .app-icon:hover {
+            transform: translateY(-5px);
+        }
+        
+        .app-icon::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 50%);
+            border-radius: 28px;
         }
         
         .app-icon-inner {
-            width: 80%;
-            height: 80%;
+            width: 75%;
+            height: 75%;
+            z-index: 2;
         }
         
         .app-title {
@@ -46,193 +105,421 @@
         }
         
         h1 {
-            font-size: 2.5rem;
-            margin: 0 0 10px 0;
-            color: #2c3e50;
+            font-size: 3.5rem;
+            margin: 0 0 0.5rem 0;
+            color: var(--dark);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
         }
         
         .app-description {
-            font-size: 1.2rem;
-            line-height: 1.5;
-            margin-bottom: 40px;
-            color: #555;
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin: 1.5rem 0;
+            color: var(--text);
+            max-width: 90%;
+        }
+        
+        /* Moderne Screenshot-Präsentation */
+        .screenshots-container {
+            position: relative;
+            margin: 4rem 0;
+            height: 650px;
         }
         
         .screenshots {
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            height: 100%;
         }
         
         .screenshot {
-            width: 30%;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            max-height: 600px;
+            transition: all 0.5s ease;
+            transform-origin: bottom center;
+            position: relative;
         }
         
-        .download-button {
-            display: inline-block;
-            background-color: #007bff;
-            color: white;
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
+        .screenshot:nth-child(1) {
+            transform: perspective(1000px) rotateY(-15deg) translateZ(0);
+            z-index: 1;
         }
         
-        .download-button:hover {
-            background-color: #0056b3;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        .screenshot:nth-child(2) {
+            transform: perspective(1000px) rotateY(0) translateZ(50px);
+            z-index: 3;
         }
         
+        .screenshot:nth-child(3) {
+            transform: perspective(1000px) rotateY(15deg) translateZ(0);
+            z-index: 1;
+        }
+        
+        .screenshot:hover {
+            transform: perspective(1000px) rotateY(0) translateZ(50px) scale(1.05);
+            z-index: 10;
+        }
+        
+        /* Moderne Funktionsdarstellung */
         .features {
-            margin: 40px 0;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 3rem;
+            margin: 4rem 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.6);
         }
         
         .features h2 {
-            color: #2c3e50;
-            margin-bottom: 20px;
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 2rem;
+            font-weight: 700;
+            text-align: center;
         }
         
         .features-list {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
+            gap: 2rem;
         }
         
         .feature {
-            width: 30%;
-            margin-bottom: 30px;
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
             text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .feature:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
         }
         
         .feature-icon {
-            font-size: 2.5rem;
-            color: #007bff;
-            margin-bottom: 10px;
+            font-size: 3rem;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            margin-top: -50px;
+            box-shadow: 0 10px 20px rgba(29, 78, 216, 0.2);
         }
         
-        footer {
-            margin-top: 60px;
+        .feature h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .feature p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+        
+        /* Moderner CTA-Bereich */
+        .cta-section {
             text-align: center;
-            color: #999;
+            margin: 5rem 0 3rem;
+        }
+        
+        .download-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 1rem 2.5rem;
+            font-size: 1.3rem;
+            text-decoration: none;
+            border-radius: 100px;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .download-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.6s ease;
+        }
+        
+        .download-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(37, 99, 235, 0.4);
+        }
+        
+        .download-button:hover::before {
+            left: 100%;
+        }
+        
+        .download-button i {
+            margin-right: 0.8rem;
+            font-size: 1.5rem;
+        }
+        
+        /* Moderner Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-light);
             font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-dark);
+        }
+        
+        /* Wetter-Animationen für den Hintergrund */
+        .weather-animations {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .cloud, .sun {
+            position: absolute;
+            opacity: 0.4;
+        }
+        
+        .cloud {
+            background: white;
+            border-radius: 50%;
+            filter: blur(20px);
+            animation: float 60s linear infinite;
+        }
+        
+        .cloud:nth-child(1) {
+            width: 180px;
+            height: 60px;
+            top: 15%;
+            left: -10%;
+            animation-duration: 120s;
+        }
+        
+        .cloud:nth-child(2) {
+            width: 120px;
+            height: 40px;
+            top: 35%;
+            left: -5%;
+            animation-duration: 100s;
+            animation-delay: -20s;
+        }
+        
+        .cloud:nth-child(3) {
+            width: 200px;
+            height: 70px;
+            top: 60%;
+            left: -15%;
+            animation-duration: 110s;
+            animation-delay: -50s;
+        }
+        
+        .sun {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(251, 191, 36, 0.4) 0%, rgba(251, 191, 36, 0) 70%);
+            top: 10%;
+            right: 10%;
+            border-radius: 50%;
+            animation: pulse 10s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            from {
+                transform: translateX(-10%);
+            }
+            to {
+                transform: translateX(110%);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.4;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.6;
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .screenshots-container {
+                height: auto;
+            }
+            
+            .screenshots {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .screenshot {
+                transform: none !important;
+                max-width: 80%;
+            }
+            
+            .screenshot:hover {
+                transform: scale(1.05) !important;
+            }
         }
         
         @media (max-width: 768px) {
-            .screenshot {
-                width: 100%;
-                margin-bottom: 15px;
-            }
-            
             header {
                 flex-direction: column;
                 text-align: center;
+                padding: 1.5rem;
             }
             
             .app-icon {
                 margin-right: 0;
-                margin-bottom: 15px;
+                margin-bottom: 1.5rem;
+            }
+            
+            h1::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .app-description {
+                max-width: 100%;
+            }
+            
+            .features-list {
+                justify-content: center;
             }
             
             .feature {
-                width: 100%;
+                min-width: 100%;
             }
         }
         
-        .sun-icon {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .sun-circle {
-            width: 40%;
-            height: 40%;
-            border-radius: 50%;
-            background-color: #ffc107;
-            position: relative;
-        }
-        
-        .sun-rays {
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            top: -50%;
-            left: -50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .ray {
-            position: absolute;
-            width: 15%;
-            height: 15%;
-            background-color: #ffc107;
-            border-radius: 50%;
-        }
-        
-        .ray:nth-child(1) { transform: translate(0, -120%); }
-        .ray:nth-child(2) { transform: translate(85%, -85%); }
-        .ray:nth-child(3) { transform: translate(120%, 0); }
-        .ray:nth-child(4) { transform: translate(85%, 85%); }
-        .ray:nth-child(5) { transform: translate(0, 120%); }
-        .ray:nth-child(6) { transform: translate(-85%, 85%); }
-        .ray:nth-child(7) { transform: translate(-120%, 0); }
-        .ray:nth-child(8) { transform: translate(-85%, -85%); }
+       
     </style>
 </head>
 <body>
+    <div class="weather-animations">
+        <div class="cloud"></div>
+        <div class="cloud"></div>
+        <div class="cloud"></div>
+        <div class="sun"></div>
+    </div>
+    
     <div class="container">
         <header>
             <div class="app-icon">
-                <img src="./favicon.png" alt="WetterApp Icon" class="app-icon-inner">
+                <img src="./favicon.png" alt="App Icon" class="app-icon-inner">
             </div>
             <div class="app-title">
-                <h1>WetterApp</h1>
+                <h1>SkyCheck</h1>
                 <p class="app-description">Genaue Wettervorhersagen mit Kleidungsempfehlungen für jede Stadt und jeden Tag der Woche.</p>
             </div>
         </header>
         
-        <div class="screenshots">
-            <img src="./Screenshot1.jpg" alt="Screenshot Wochenvorhersage Zürich" class="screenshot">
-            <img src="./Screenshot2.jpg" alt="Screenshot Wochenvorhersage Zürich" class="screenshot">
-            <img src="./Screenshot3.jpg" alt="Screenshot Wochenvorhersage Zürich" class="screenshot">
+        <div class="screenshots-container">
+            <div class="screenshots">
+                <img src="./Screenshot1.jpg" alt="Screenshot Wochenvorhersage Zürich" class="screenshot">
+                <img src="./Screenshot2.jpg" alt="Screenshot Tagesvorhersage Zürich" class="screenshot">
+                <img src="./Screenshot3.jpg" alt="Screenshot Tagesvorhersage Madrid" class="screenshot">
+            </div>
         </div>
         
         <div class="features">
-            <h2>Funktionen:</h2>
+            <h2>Was SkyCheck besonders macht</h2>
             <div class="features-list">
                 <div class="feature">
                     <div class="feature-icon">🌡️</div>
                     <h3>Präzise Vorhersagen</h3>
-                    <p>Aktuelle Temperaturen und Windgeschwindigkeiten für jede Stadt weltweit</p>
+                    <p>Aktuelle Temperaturen und Windgeschwindigkeiten für jede Stadt weltweit mit minutengenauer Aktualisierung.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">👕</div>
                     <h3>Kleidungsempfehlung</h3>
-                    <p>Praktische Tipps, was du täglich anziehen solltest</p>
+                    <p>Smarte Tipps, was du täglich anziehen solltest, basierend auf Temperatur, Wind und Niederschlag.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">📅</div>
                     <h3>Wochenübersicht</h3>
-                    <p>Plane deine Woche mit unserer übersichtlichen 7-Tage-Vorhersage</p>
+                    <p>Plane deine Woche mit unserer übersichtlichen 7-Tage-Vorhersage und verpasse nie das perfekte Wetter.</p>
                 </div>
             </div>
         </div>
         
-        <a href="#" class="download-button">APK Herunterladen</a>
+        <div class="cta-section">
+            <a href="#" class="download-button">
+                <span>APK Herunterladen</span>
+            </a>
+        </div>
         
         <footer>
+            <div class="footer-links">
+                <a href="#">Datenschutz</a>
+                <a href="#">Nutzungsbedingungen</a>
+                <a href="#">Kontakt</a>
+            </div>
             <p>© 2025 WetterApp. Alle Rechte vorbehalten.</p>
         </footer>
     </div>
