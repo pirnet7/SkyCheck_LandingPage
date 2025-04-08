@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WetterApp - Dein täglicher Wetterbegleiter</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .app-icon {
+            width: 120px;
+            height: 120px;
+            border-radius: 24px;
+            margin-right: 20px;
+            background-color: #0a1735;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .app-icon-inner {
+            width: 80%;
+            height: 80%;
+        }
+        
+        .app-title {
+            flex-grow: 1;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+        }
+        
+        .app-description {
+            font-size: 1.2rem;
+            line-height: 1.5;
+            margin-bottom: 40px;
+            color: #555;
+        }
+        
+        .screenshots {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .screenshot {
+            width: 30%;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .download-button {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .download-button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .features {
+            margin: 40px 0;
+        }
+        
+        .features h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        .features-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .feature {
+            width: 30%;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            color: #999;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .screenshot {
+                width: 100%;
+                margin-bottom: 15px;
+            }
+            
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .app-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .feature {
+                width: 100%;
+            }
+        }
+        
+        .sun-icon {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .sun-circle {
+            width: 40%;
+            height: 40%;
+            border-radius: 50%;
+            background-color: #ffc107;
+            position: relative;
+        }
+        
+        .sun-rays {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .ray {
+            position: absolute;
+            width: 15%;
+            height: 15%;
+            background-color: #ffc107;
+            border-radius: 50%;
+        }
+        
+        .ray:nth-child(1) { transform: translate(0, -120%); }
+        .ray:nth-child(2) { transform: translate(85%, -85%); }
+        .ray:nth-child(3) { transform: translate(120%, 0); }
+        .ray:nth-child(4) { transform: translate(85%, 85%); }
+        .ray:nth-child(5) { transform: translate(0, 120%); }
+        .ray:nth-child(6) { transform: translate(-85%, 85%); }
+        .ray:nth-child(7) { transform: translate(-120%, 0); }
+        .ray:nth-child(8) { transform: translate(-85%, -85%); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="app-icon">
+                <img src="./favicon.png" alt="WetterApp Icon" class="app-icon-inner">
+            </div>
+            <div class="app-title">
+                <h1>WetterApp</h1>
+                <p class="app-description">Genaue Wettervorhersagen mit Kleidungsempfehlungen für jede Stadt und jeden Tag der Woche.</p>
+            </div>
+        </header>
+        
+        <div class="screenshots">
+            <img src="./Screenshot1.jpg" alt="Screenshot Wochenvorhersage Zürich" class="screenshot">
+            <img src="./Screenshot2.jpg" alt="Screenshot Wochenvorhersage Zürich" class="screenshot">
+            <img src="./Screenshot3.jpg" alt="Screenshot Wochenvorhersage Zürich" class="screenshot">
+        </div>
+        
+        <div class="features">
+            <h2>Funktionen:</h2>
+            <div class="features-list">
+                <div class="feature">
+                    <div class="feature-icon">🌡️</div>
+                    <h3>Präzise Vorhersagen</h3>
+                    <p>Aktuelle Temperaturen und Windgeschwindigkeiten für jede Stadt weltweit</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">👕</div>
+                    <h3>Kleidungsempfehlung</h3>
+                    <p>Praktische Tipps, was du täglich anziehen solltest</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📅</div>
+                    <h3>Wochenübersicht</h3>
+                    <p>Plane deine Woche mit unserer übersichtlichen 7-Tage-Vorhersage</p>
+                </div>
+            </div>
+        </div>
+        
+        <a href="#" class="download-button">APK Herunterladen</a>
+        
+        <footer>
+            <p>© 2025 WetterApp. Alle Rechte vorbehalten.</p>
+        </footer>
+    </div>
+</body>
+</html>
